@@ -5,17 +5,28 @@
  */
 package text_finder;
 
+import javax.swing.JFrame;
+
+
+
 /**
  *
  * @author Harold
  */
 public class Text_Finder {
-
-    /**
-     * @param args the command line arguments
-     */
+    
+   
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Ventana ventana1= new Ventana();
+        ventana1.setSize(797,462);
+        ventana1.setVisible(true);
+        ventana1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+
+
+    
+    
     }
     
 }
