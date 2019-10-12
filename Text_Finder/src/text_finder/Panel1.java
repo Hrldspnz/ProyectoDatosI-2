@@ -144,7 +144,7 @@ public class Panel1 extends JPanel{
                     File Archivo = File.getSelectedFile();
                     Path origen = Paths.get(Archivo.getPath());
                     String nombre = Archivo.getName();
-                    Path destino = FileSystems.getDefault().getPath(dir.getAbsolutePath() + nombre);                    
+                    Path destino = FileSystems.getDefault().getPath(dir.getAbsolutePath() +"\\"+ nombre);                    
                     try {
                         Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                         modeloLista.addElement(Archivo.getName());

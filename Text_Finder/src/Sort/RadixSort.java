@@ -1,65 +1,66 @@
-package sort;
+package Sort;
 
-import java.io.*;
+import java.io.File;
 import java.util.*;
-public class RadixSort {
-        // A utility function to get maximum value in arr[]
-        static int getMax(int arr[], int n)
+
+    public class RadixSort {
+        static File dir = new File("Docs");
+        static String direccion = dir.getAbsolutePath();
+        
+
+        @SuppressWarnings("empty-statement")
+        public static int getMax(String arr[], int n)
         {
-            int mx = arr[0];
-            for (int i = 1; i < n; i++)
-                if (arr[i] > mx)
-                    mx = arr[i];
+            File may = new File(direccion +"\\"+ arr[0]);
+            System.out.println(direccion+arr[0]);
+            int mx =  (int)may.length();
+            System.out.println(mx);
+            for ( int i = 1; i < n; i++){
+                File comp = new File(direccion+"\\"+arr[i]);
+                if (comp.length() > mx)
+                    mx = (int) comp.length();
+            }
+            System.out.println(mx);
             return mx;
         }
 
-        // A function to do counting sort of arr[] according to
-        // the digit represented by exp.
-        static void countSort(int arr[], int n, int exp)
+        public static void countSort(String arr[], int n, int exp)
         {
-            int output[] = new int[n]; // output array
+            String output[] = new String[n]; 
             int i;
             int count[] = new int[10];
             Arrays.fill(count,0);
 
-            // Store count of occurrences in count[]
-            for (i = 0; i < n; i++)
-                count[ (arr[i]/exp)%10 ]++;
-
-            // Change count[i] so that count[i] now contains
-            // actual position of this digit in output[]
-            for (i = 1; i < 10; i++)
+            for (i = 0; i < n; i++){
+                File comp = new File(direccion+"\\"+arr[i]);
+                count[ ((int)comp.length()/exp)%10 ]++;
+            }
+            
+            for (i = 1; i < 10; i++){
                 count[i] += count[i - 1];
-
-            // Build the output array
+            }
+           
             for (i = n - 1; i >= 0; i--)
             {
-                output[count[ (arr[i]/exp)%10 ] - 1] = arr[i];
-                count[ (arr[i]/exp)%10 ]--;
+                File comp = new File(direccion+"\\"+arr[i]);
+                output[count[ ((int)comp.length() /exp)%10 ] - 1] = arr[i];
+                count[ ((int)comp.length()/exp)%10 ]--;
             }
 
-            // Copy the output array to arr[], so that arr[] now
-            // contains sorted numbers according to curent digit
             for (i = 0; i < n; i++)
                 arr[i] = output[i];
         }
 
-        // The main function to that sorts arr[] of size n using
-        // Radix Sort
-        static void radixsort(int arr[], int n)
+        public static String[] radixsort(String arr[], int n)
         {
-            // Find the maximum number to know number of digits
-            int m = getMax(arr, n);
+            int m = (int) getMax(arr, n);
 
-            // Do counting sort for every digit. Note that instead
-            // of passing digit number, exp is passed. exp is 10^i
-            // where i is current digit number
             for (int exp = 1; m/exp > 0; exp *= 10)
                 countSort(arr, n, exp);
+            return arr;
         }
 
-        // A utility function to print an array
-        static void print(int arr[], int n)
+        public static void print(int arr[], int n)
         {
             for (int i=0; i<n; i++)
                 System.out.print(arr[i]+" ");
@@ -67,11 +68,11 @@ public class RadixSort {
 
 
         /*Driver function to check for above function*/
-        public static void main (String[] args)
+        /*public static void main (String[] args)
         {
             int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
             int n = arr.length;
             radixsort(arr, n);
             print(arr, n);
-        }
+        }*/
     }
