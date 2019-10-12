@@ -98,7 +98,7 @@ public class Panel1 extends JPanel{
         Texto_doc.setFont(fuente);
         this.add(Texto_doc);
         
-        File dir = new File("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\src\\Documentos");
+        File dir = new File("Docs");
         recorrer = dir.list();
         Directorios = dir.listFiles();
         
@@ -144,7 +144,7 @@ public class Panel1 extends JPanel{
                     File Archivo = File.getSelectedFile();
                     Path origen = Paths.get(Archivo.getPath());
                     String nombre = Archivo.getName();
-                    Path destino = FileSystems.getDefault().getPath("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\src\\Documentos\\" + nombre);                    
+                    Path destino = FileSystems.getDefault().getPath(dir.getAbsolutePath() + nombre);                    
                     try {
                         Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                         modeloLista.addElement(Archivo.getName());
