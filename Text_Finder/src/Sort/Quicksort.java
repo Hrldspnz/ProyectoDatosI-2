@@ -1,7 +1,9 @@
 
 package Sort;
 
-
+/**
+ * @author Harold EM
+ */
     public class Quicksort  {
         private static String[] names;
         private static int number;

@@ -2,25 +2,23 @@ package Sort;
 
 import java.io.File;
 import java.util.*;
-
+    
+    /**
+     * @author Harold EM
+     */
     public class RadixSort {
         static File dir = new File("Docs");
         static String direccion = dir.getAbsolutePath();
         
-
-        @SuppressWarnings("empty-statement")
         public static int getMax(String arr[], int n)
         {
             File may = new File(direccion +"\\"+ arr[0]);
-            System.out.println(direccion+arr[0]);
             int mx =  (int)may.length();
-            System.out.println(mx);
             for ( int i = 1; i < n; i++){
                 File comp = new File(direccion+"\\"+arr[i]);
                 if (comp.length() > mx)
                     mx = (int) comp.length();
             }
-            System.out.println(mx);
             return mx;
         }
 
@@ -66,13 +64,4 @@ import java.util.*;
                 System.out.print(arr[i]+" ");
         }
 
-
-        /*Driver function to check for above function*/
-        /*public static void main (String[] args)
-        {
-            int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
-            int n = arr.length;
-            radixsort(arr, n);
-            print(arr, n);
-        }*/
     }
