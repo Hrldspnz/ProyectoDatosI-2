@@ -6,17 +6,14 @@
 package text_finder;
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,16 +24,16 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import static text_finder.Panel2.Texto;
+
 
 
 
@@ -50,14 +47,16 @@ public class Panel1 extends JPanel{
     JTextField Barra;
     MouseListener mo;
     JButton Cargar;
+    JButton Abrir;
     
-    JTextArea Texto;
+    
     static String letra2;
     static JScrollPane scroll;
     
     static FileOutputStream salida;
     JList lista_Documentos;
     public static Object[] recorrer;
+    public static Object[] Directorios;
     public static Object[] recorrer_borrar;
     
     DefaultListModel modeloLista;
@@ -83,6 +82,11 @@ public class Panel1 extends JPanel{
         Borrar.setText("Borrar");
         this.add(Borrar);
         
+        Abrir = new JButton();
+        Abrir.setBounds(170, 200, 80, 30);
+        Abrir.setText("Abrir");
+        this.add(Abrir);
+        
         Cargar = new JButton();
         Cargar.setBounds(60, 660, 300, 40);
         Cargar.setText("Cargar Archivo");
@@ -96,6 +100,7 @@ public class Panel1 extends JPanel{
         
         File dir = new File("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\src\\Documentos");
         recorrer = dir.list();
+        Directorios = dir.listFiles();
         
         modeloLista = new DefaultListModel();
         
@@ -105,6 +110,9 @@ public class Panel1 extends JPanel{
             for (int x=0;x<recorrer.length;x++){
                 
                 modeloLista.addElement(recorrer[x]);
+                System.out.println(recorrer[x]);
+                
+                System.out.println(Directorios[x]);
                 
                 }
             
@@ -136,7 +144,7 @@ public class Panel1 extends JPanel{
                     File Archivo = File.getSelectedFile();
                     Path origen = Paths.get(Archivo.getPath());
                     String nombre = Archivo.getName();
-                    Path destino = FileSystems.getDefault().getPath("Documentos" + nombre);                    
+                    Path destino = FileSystems.getDefault().getPath("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\src\\Documentos\\" + nombre);                    
                     try {
                         Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                         modeloLista.addElement(Archivo.getName());
@@ -145,12 +153,32 @@ public class Panel1 extends JPanel{
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Borrar){
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Buscar){
+                    
+                   
+                }
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
                     try {
-                        EliminarDocumentos();
+                        texto();
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                   
+                }
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Borrar){
+                    try {
+                        EliminarDocumentos();
+                       
+                    } catch (IOException ex) {
+                        Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Abrir){
+                    Texto.setText(null);
+                    String text = letra2;
+                    Texto.setText(text);
+                    
+                    
                 }
                 
             }
@@ -176,36 +204,33 @@ public class Panel1 extends JPanel{
         Buscar.addMouseListener(mo);
         Cargar.addMouseListener(mo);
         Borrar.addMouseListener(mo);
+        lista_Documentos.addMouseListener(mo);
+        Abrir.addMouseListener(mo);
 }
     public void EliminarDocumentos() throws IOException{
        
         int pos = lista_Documentos.getSelectedIndex();
         if (pos != -1){
-            int respuesta = JOptionPane.showConfirmDialog(null, "Â¿Quiere borrar el Documento?");
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere borrar el Documento?");
             if (respuesta == 0){
+                
+                System.out.println(modeloLista.get(pos));
                 modeloLista.remove(pos);
      
         }
     }
     }
-    /*
+    
     public void texto() throws IOException{
-        JFrame window = new JFrame();
-        Texto = new JTextArea();
-        scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setBounds(10, 136, 390, 250);
-        window.setSize(500,462);
-        window.setVisible(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //scroll.setBounds(10, 136, 390, 250);
         FileReader entrada;
-        Texto.setBounds(0, 0, window.getWidth(), window.getHeight());
-        window.add(Texto);
+        int pos = lista_Documentos.getSelectedIndex();
+        //String direct = (String) Directorios[pos];
+        entrada = new FileReader((File) Directorios[pos]);
         
-        
-        
-        
-        
-        entrada = new FileReader("C:/Users/arman/OneDrive/Documentos/texto.txt");
         int c = entrada.read();
         while(c != -1){
             
@@ -216,12 +241,13 @@ public class Panel1 extends JPanel{
             
             letra2 += letra3;
             
-            //System.out.print(letra2);
+            
         }
-        Texto.setText(letra2);
-        Texto.repaint();
+        
+        System.out.println(letra2);
+        //jPanel2.repaint();
     }
     
-   */
+   
     
 }

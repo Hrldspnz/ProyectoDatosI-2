@@ -12,7 +12,7 @@ package text_finder;
 public class Ventana extends javax.swing.JFrame{
     
     Panel1 jPanel1;
-    Panel2 jPanel2;
+    static Panel2 jPanel2;
                            
     public Ventana() {
         initComponents();
