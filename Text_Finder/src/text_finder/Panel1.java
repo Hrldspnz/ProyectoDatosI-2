@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,6 +39,7 @@ import static text_finder.Panel2.Texto;
 
 
 
+
 /**
  *
  * @author arman
@@ -48,7 +51,7 @@ public class Panel1 extends JPanel{
     MouseListener mo;
     JButton Cargar;
     JButton Abrir;
-    
+    JButton Orden;
     
     static String letra2;
     static JScrollPane scroll;
@@ -87,6 +90,11 @@ public class Panel1 extends JPanel{
         Abrir.setText("Abrir");
         this.add(Abrir);
         
+        Orden = new JButton();
+        Orden.setBounds(250, 150, 95, 30);
+        Orden.setText("Ordenar");
+        this.add(Orden);
+        
         Cargar = new JButton();
         Cargar.setBounds(60, 660, 300, 40);
         Cargar.setText("Cargar Archivo");
@@ -110,9 +118,6 @@ public class Panel1 extends JPanel{
             for (int x=0;x<recorrer.length;x++){
                 
                 modeloLista.addElement(recorrer[x]);
-                System.out.println(recorrer[x]);
-                
-                System.out.println(Directorios[x]);
                 
                 }
             
@@ -148,6 +153,11 @@ public class Panel1 extends JPanel{
                     try {
                         Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                         modeloLista.addElement(Archivo.getName());
+                        File dir = new File("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\src\\Documentos");
+                        recorrer = dir.list();
+                        Directorios = dir.listFiles();
+                       
+                        
                         
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +185,9 @@ public class Panel1 extends JPanel{
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Abrir){
                     Texto.setText(null);
+                    
                     String text = letra2;
+                    separar();
                     Texto.setText(text);
                     
                     
@@ -212,11 +224,13 @@ public class Panel1 extends JPanel{
         int pos = lista_Documentos.getSelectedIndex();
         if (pos != -1){
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere borrar el Documento?");
-            if (respuesta == 0){
-                
-                System.out.println(modeloLista.get(pos));
-                modeloLista.remove(pos);
-     
+            if (respuesta == 0){ 
+                String fichero = (String) modeloLista.get(pos);
+                File file = new File(fichero);
+                String path = file.getCanonicalPath();
+                File filePath = new File(path);
+                filePath.delete();
+                modeloLista.remove(pos);    
         }
     }
     }
@@ -226,27 +240,43 @@ public class Panel1 extends JPanel{
         
         //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         //scroll.setBounds(10, 136, 390, 250);
+    
+        letra2 = null;
         FileReader entrada;
         int pos = lista_Documentos.getSelectedIndex();
-        //String direct = (String) Directorios[pos];
-        entrada = new FileReader((File) Directorios[pos]);
-        
+        File f = (File) Directorios[pos];
+        entrada = new FileReader(f);
+        System.out.println(entrada.getEncoding());
         int c = entrada.read();
         while(c != -1){
             
             c = entrada.read();
+         
             char letra = (char)c;
             String letra3 = Character.toString(letra);
+            
             
             
             letra2 += letra3;
             
             
         }
+  
         
-        System.out.println(letra2);
-        //jPanel2.repaint();
     }
+    public void separar(){
+        String[] parts = letra2.split(" ");
+        
+    }
+    
+    public void pdf() throws FileNotFoundException{
+        FileReader entrada;
+        int pos = lista_Documentos.getSelectedIndex();
+        entrada = new FileReader((File) Directorios[pos]);
+       
+    }
+    
+    
     
    
     
