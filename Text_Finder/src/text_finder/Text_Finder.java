@@ -21,11 +21,7 @@ public class Text_Finder {
         Ventana ventana1= new Ventana();
         ventana1.setSize(797,462);
         ventana1.setVisible(true);
-        ventana1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-
-
-    
+        ventana1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
     
     }
     

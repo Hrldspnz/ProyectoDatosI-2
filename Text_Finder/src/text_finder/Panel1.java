@@ -35,7 +35,10 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import static text_finder.Panel2.Texto;
-
+import static Sort.Quicksort.Ordenar;
+import static Sort.RadixSort.radixsort;
+import static Sort.BubbleSort.bubble_srt;
+import static text_finder.PBdocx.letra2;
 
 
 
@@ -153,7 +156,7 @@ public class Panel1 extends JPanel{
                     try {
                         Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                         modeloLista.addElement(Archivo.getName());
-                        File dir = new File("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\src\\Documentos");
+                        File dir = new File("Docs");
                         recorrer = dir.list();
                         Directorios = dir.listFiles();
                        
@@ -183,6 +186,31 @@ public class Panel1 extends JPanel{
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Orden){
+                    
+                    String[] options = {"Nombre", "Fecha", "Tamaño"};
+                    int x = JOptionPane.showOptionDialog(null, "Returns the position of your choice on the array","Click a button",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    
+                    int largo = modeloLista.getSize();
+                    String [] documentos = new String[largo];
+
+                    for(int i=0 ; i<largo ; i++){
+                        documentos[i] = (String) modeloLista.get(i);
+                    }
+                    switch(x){
+                        case 0 : Ordenar(documentos);break;
+                        case 1 : bubble_srt(documentos);break;
+                        case 2 : radixsort(documentos,largo);break;
+                        default : Ordenar(documentos); break;
+                            
+                    }modeloLista.clear(); //limpiamos el cuadro de lista
+                    for (int i = 0; i < largo; i++) {
+                       modeloLista.addElement(documentos[i]); //imprimimos los datos
+                    }
+                    
+                    
+                }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Abrir){
                     Texto.setText(null);
                     
@@ -210,12 +238,15 @@ public class Panel1 extends JPanel{
             @Override
             public void mouseExited(MouseEvent e) {
             }
+
+            
             
         };
         this.addMouseListener(mo);
         Buscar.addMouseListener(mo);
         Cargar.addMouseListener(mo);
         Borrar.addMouseListener(mo);
+        Orden.addMouseListener(mo);
         lista_Documentos.addMouseListener(mo);
         Abrir.addMouseListener(mo);
 }
@@ -231,8 +262,8 @@ public class Panel1 extends JPanel{
                 File filePath = new File(path);
                 filePath.delete();
                 modeloLista.remove(pos);    
+            }
         }
-    }
     }
     
     public void texto() throws IOException{
@@ -241,27 +272,27 @@ public class Panel1 extends JPanel{
         //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         //scroll.setBounds(10, 136, 390, 250);
     
-        letra2 = null;
         FileReader entrada;
         int pos = lista_Documentos.getSelectedIndex();
-        File f = (File) Directorios[pos];
-        entrada = new FileReader(f);
-        System.out.println(entrada.getEncoding());
-        int c = entrada.read();
+        //String direct = (String) Directorios[pos];
+        entrada = new FileReader((File) Directorios[pos]);
+        
+        int c = 0;
+                //System.out.println(c);
         while(c != -1){
-            
+
             c = entrada.read();
-         
+            //System.out.println(c);
             char letra = (char)c;
             String letra3 = Character.toString(letra);
-            
-            
-            
-            letra2 += letra3;
-            
-            
+            //System.out.println(letra3);
+
+            if(letra2 == null){
+                letra2 = letra3;
+            }else{
+                letra2 += letra3;
+            }
         }
-  
         
     }
     public void separar(){
