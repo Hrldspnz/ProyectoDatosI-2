@@ -38,6 +38,9 @@ import static text_finder.Panel2.Texto;
 import static Sort.Quicksort.Ordenar;
 import static Sort.RadixSort.radixsort;
 import static Sort.BubbleSort.bubble_srt;
+import java.util.List;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import static text_finder.PBdocx.letra2;
 
 
@@ -266,32 +269,64 @@ public class Panel1 extends JPanel{
         }
     }
     
+    /**
+     * @author Harold EM, Armando
+     */
     public void texto() throws IOException{
         
         
         //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         //scroll.setBounds(10, 136, 390, 250);
-    
+        
         FileReader entrada;
         int pos = lista_Documentos.getSelectedIndex();
-        //String direct = (String) Directorios[pos];
-        entrada = new FileReader((File) Directorios[pos]);
+        letra2 = null;
         
-        int c = 0;
+        try {
+            File dir = (File) Directorios[pos];
+            File file = new File(dir.getAbsolutePath());
+            
+            FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+
+            XWPFDocument document = new XWPFDocument(fis);
+
+            List<XWPFParagraph> paragraphs = document.getParagraphs();
+
+
+            paragraphs.stream().forEach((para) -> {
+                System.out.println(para.getText());
+                letra2 = para.getText();
+            });
+            fis.close();
+        } catch (Exception e){
+                
+            try{
+
+                entrada = new FileReader((File) Directorios[pos]);
+
+                int c = 0;
                 //System.out.println(c);
-        while(c != -1){
+                while(c != -1){
 
-            c = entrada.read();
-            //System.out.println(c);
-            char letra = (char)c;
-            String letra3 = Character.toString(letra);
-            //System.out.println(letra3);
+                    c = entrada.read();
+                    //System.out.println(c);
+                    char letra = (char)c;
+                    String letra3 = Character.toString(letra);
+                    //System.out.println(letra3);
 
-            if(letra2 == null){
-                letra2 = letra3;
-            }else{
-                letra2 += letra3;
-            }
+                    if(letra2 == null){
+                        letra2 = letra3;
+                    }else{
+                        letra2 += letra3;
+                    }
+
+                }
+
+
+            } catch(Exception ex){
+                ex.printStackTrace();
+            }  
+                
         }
         
     }
