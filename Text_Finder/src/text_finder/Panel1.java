@@ -39,9 +39,11 @@ import static Sort.Quicksort.Ordenar;
 import static Sort.RadixSort.radixsort;
 import static Sort.BubbleSort.bubble_srt;
 import java.util.List;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import static text_finder.PBdocx.letra2;
 
 
 
@@ -253,6 +255,7 @@ public class Panel1 extends JPanel{
         lista_Documentos.addMouseListener(mo);
         Abrir.addMouseListener(mo);
 }
+    
     public void EliminarDocumentos() throws IOException{
        
         int pos = lista_Documentos.getSelectedIndex();
@@ -300,19 +303,34 @@ public class Panel1 extends JPanel{
             fis.close();
         } catch (Exception e){
                 
-            try{
+              try{
+                File dir = (File) Directorios[pos];
+                PDDocument document = PDDocument.load(new File(dir.getAbsolutePath()));
+                AccessPermission ap = document.getCurrentAccessPermission();
+                if (!ap.canExtractContent())
+                {
+                    throw new IOException("You do not have permission to extract text");
+                }
 
-                entrada = new FileReader((File) Directorios[pos]);
+                PDFTextStripper stripper = new PDFTextStripper();
 
-                int c = 0;
-                //System.out.println(c);
-                while(c != -1){
+                stripper.setSortByPosition(true);
 
-                    c = entrada.read();
-                    //System.out.println(c);
-                    char letra = (char)c;
-                    String letra3 = Character.toString(letra);
-                    //System.out.println(letra3);
+                for (int p = 1; p <= document.getNumberOfPages(); ++p)
+                {
+
+                    stripper.setStartPage(p);
+                    stripper.setEndPage(p);
+
+                    String text = stripper.getText(document);
+
+                    String pageStr = String.format("page %d:", p);
+                    System.out.println(pageStr);
+                    for (int i = 0; i < pageStr.length(); ++i)
+                    {
+                        System.out.print("-");
+                    }
+                    String letra3 = text.trim();
 
                     if(letra2 == null){
                         letra2 = letra3;
@@ -320,27 +338,46 @@ public class Panel1 extends JPanel{
                         letra2 += letra3;
                     }
 
+
                 }
+                document.close();
+                }catch(Exception exc){
+                    try{                    
+                        entrada = new FileReader((File) Directorios[pos]);
+
+                        int c = 0;
+                        
+                        while(c != -1){
+
+                            c = entrada.read();
+                            
+                            char letra = (char)c;
+                            String letra3 = Character.toString(letra);
+                            
+
+                            if(letra2 == null){
+                                letra2 = letra3;
+                            }else{
+                                letra2 += letra3;
+                            }
+
+                        }
 
 
-            } catch(Exception ex){
-                ex.printStackTrace();
-            }  
-                
-        }
+                    } catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                }                
+            }
         
     }
+    
     public void separar(){
         String[] parts = letra2.split(" ");
         
     }
     
-    public void pdf() throws FileNotFoundException{
-        FileReader entrada;
-        int pos = lista_Documentos.getSelectedIndex();
-        entrada = new FileReader((File) Directorios[pos]);
-       
-    }
+
     
     
     
