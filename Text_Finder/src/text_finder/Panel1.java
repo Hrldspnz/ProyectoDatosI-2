@@ -194,7 +194,7 @@ public class Panel1 extends JPanel{
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Orden){
                     
                     String[] options = {"Nombre", "Fecha", "Tamaño"};
-                    int x = JOptionPane.showOptionDialog(null, "Returns the position of your choice on the array","Click a button",
+                    int x = JOptionPane.showOptionDialog(null, "Seleccione como desea ordenar los archivos","Ordenar por",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                     
                     int largo = modeloLista.getSize();
