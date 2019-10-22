@@ -3,13 +3,19 @@ package Sort;
 import java.io.File;
 import java.util.*;
     
-    /**
+    /**Clase de Ordenado por tamaño con el metodo RadixSort
      * @author Harold EM
      */
     public class RadixSort {
         static File dir = new File("Docs");
         static String direccion = dir.getAbsolutePath();
         
+        /**
+         * Obtiene el valor mas grande del array
+         * @param arr recibe el array a ordenar
+         * @param n logitud del array a ordenar
+         * @return devuelve el mayor elemento
+         */
         public static int getMax(String arr[], int n)
         {
             File may = new File(direccion +"\\"+ arr[0]);
@@ -21,7 +27,14 @@ import java.util.*;
             }
             return mx;
         }
-
+        
+        /**
+         * Metdo encargado de ordenar el array
+         * @param arr recibe el array a ordenar 
+         * @param n largo del array
+         * @param exp eponente a dividir 
+         * 
+         */
         public static void countSort(String arr[], int n, int exp)
         {
             String output[] = new String[n]; 
@@ -48,7 +61,12 @@ import java.util.*;
             for (i = 0; i < n; i++)
                 arr[i] = output[i];
         }
-
+        /**
+         * Metodo principal del radixsort
+         * @param arr recibe el array a ordenar
+         * @param n largo del array
+         * @return Devuelve el array ordenado
+         */
         public static String[] radixsort(String arr[], int n)
         {
             int m = (int) getMax(arr, n);
@@ -56,12 +74,6 @@ import java.util.*;
             for (int exp = 1; m/exp > 0; exp *= 10)
                 countSort(arr, n, exp);
             return arr;
-        }
-
-        public static void print(int arr[], int n)
-        {
-            for (int i=0; i<n; i++)
-                System.out.print(arr[i]+" ");
         }
 
     }

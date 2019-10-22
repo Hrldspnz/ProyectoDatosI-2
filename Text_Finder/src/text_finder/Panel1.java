@@ -208,9 +208,9 @@ public class Panel1 extends JPanel{
                         case 2 : radixsort(documentos,largo);break;
                         default : Ordenar(documentos); break;
                             
-                    }modeloLista.clear(); //limpiamos el cuadro de lista
+                    }modeloLista.clear();
                     for (int i = 0; i < largo; i++) {
-                       modeloLista.addElement(documentos[i]); //imprimimos los datos
+                       modeloLista.addElement(documentos[i]); 
                     }
                     
                     
@@ -274,6 +274,7 @@ public class Panel1 extends JPanel{
     }
     
     /**
+     * Metodo que se encarga de leer los documentos
      * @author Harold EM, Armando
      */
     public void texto() throws IOException{

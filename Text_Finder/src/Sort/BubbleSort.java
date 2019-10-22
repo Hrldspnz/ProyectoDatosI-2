@@ -5,11 +5,19 @@ import java.io.File;
 import java.util.Date;
 
 
-/***
+/**
+ * Clase de Ordenado por fecha con el metodo BubbleSort
  * @author HaroldEM
  */
  
 public class BubbleSort {
+    
+    /**
+     * Metodo principal para ordenar el array
+     * @param array recibe el array a ordenar 
+     * @return retorna el array ordenado por fecha
+     * 
+     */
     public static String[] bubble_srt(String array[]) {
         int n = array.length;
         int k;

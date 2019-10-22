@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 
 /**
- *
+ * Metodo main del proyecto
  * @author Harold
  */
 public class Text_Finder {
