@@ -263,9 +263,14 @@ public class Panel1 extends JPanel{
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere borrar el Documento?");
             if (respuesta == 0){ 
                 String fichero = (String) modeloLista.get(pos);
+<<<<<<< Updated upstream
                 File file = new File("Docs");
                 String path = (file.getAbsolutePath()+"\\"+fichero);
                 System.out.println(file.getAbsolutePath());
+=======
+                File file = new File(fichero);
+                String path = ("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\Docs\\" + file.getName());
+>>>>>>> Stashed changes
                 File filePath = new File(path);
                 System.out.println(filePath);
                 filePath.delete();

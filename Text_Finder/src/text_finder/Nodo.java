@@ -15,19 +15,18 @@ public class Nodo {
     
     String String;        
     File Archivo;      
-    String Texto;        
-    Nodo Arriba;             
+    String Texto;                    
     Nodo Izquierda;
     Nodo Derecha;
     
-    public Nodo(){
+    public Nodo(String Word, File ArchivoNombre, String Asociado){
    
-        Arriba = null;
+    
         Izquierda = null;
         Derecha = null;
-        String = null;
-        Archivo = null;
-        Texto = null;
+        String = Word;
+        Archivo = ArchivoNombre;
+        Texto = Asociado;
 }
 
     public String getString() {
@@ -52,14 +51,6 @@ public class Nodo {
 
     public void setTexto(String Texto) {
         this.Texto = Texto;
-    }
-
-    public Nodo getArriba() {
-        return Arriba;
-    }
-
-    public void setArriba(Nodo Arriba) {
-        this.Arriba = Arriba;
     }
 
     public Nodo getIzquierda() {
