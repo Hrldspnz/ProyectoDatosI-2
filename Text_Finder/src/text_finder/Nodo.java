@@ -5,10 +5,82 @@
  */
 package text_finder;
 
+import java.io.File;
+
 /**
  *
  * @author arman
  */
 public class Nodo {
     
+    String String;        
+    File Archivo;      
+    String Texto;        
+    Nodo Arriba;             
+    Nodo Izquierda;
+    Nodo Derecha;
+    
+    public Nodo(){
+   
+        Arriba = null;
+        Izquierda = null;
+        Derecha = null;
+        String = null;
+        Archivo = null;
+        Texto = null;
 }
+
+    public String getString() {
+        return String;
+    }
+
+    public void setString(String String) {
+        this.String = String;
+    }
+
+    public File getArchivo() {
+        return Archivo;
+    }
+
+    public void setArchivo(File Archivo) {
+        this.Archivo = Archivo;
+    }
+
+    public String getTexto() {
+        return Texto;
+    }
+
+    public void setTexto(String Texto) {
+        this.Texto = Texto;
+    }
+
+    public Nodo getArriba() {
+        return Arriba;
+    }
+
+    public void setArriba(Nodo Arriba) {
+        this.Arriba = Arriba;
+    }
+
+    public Nodo getIzquierda() {
+        return Izquierda;
+    }
+
+    public void setIzquierda(Nodo Izquierda) {
+        this.Izquierda = Izquierda;
+    }
+
+    public Nodo getDerecha() {
+        return Derecha;
+    }
+
+    public void setDerecha(Nodo Derecha) {
+        this.Derecha = Derecha;
+    }
+    
+
+    
+     
+}
+    
+

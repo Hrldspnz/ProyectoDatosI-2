@@ -5,6 +5,8 @@
  */
 package text_finder;
 
+import static text_finder.Panel2.Scroll;
+
 /**
  *
  * @author arman
@@ -27,7 +29,7 @@ public class Ventana extends javax.swing.JFrame{
     private void initComponents() {
         jPanel1 = new Panel1();
         jPanel2 = new Panel2();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        
         
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +58,7 @@ public class Ventana extends javax.swing.JFrame{
             .addGap(0, 578, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jPanel2);
+        
         jPanel2.getAccessibleContext().setAccessibleParent(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -66,12 +68,12 @@ public class Ventana extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2))
+                .addComponent(Scroll))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(Scroll, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         setSize(new java.awt.Dimension(876, 619));
@@ -79,7 +81,7 @@ public class Ventana extends javax.swing.JFrame{
     }                    
     
     
-    private javax.swing.JScrollPane jScrollPane2;
+    
       
     
 }

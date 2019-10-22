@@ -124,7 +124,7 @@ public class Panel1 extends JPanel{
             System.out.println("No hay ficheros en el directorio especificado");
         }else { 
             for (int x=0;x<recorrer.length;x++){
-                
+               
                 modeloLista.addElement(recorrer[x]);
                 
                 }
@@ -264,8 +264,9 @@ public class Panel1 extends JPanel{
             if (respuesta == 0){ 
                 String fichero = (String) modeloLista.get(pos);
                 File file = new File(fichero);
-                String path = file.getCanonicalPath();
+                String path = (file.getName());
                 File filePath = new File(path);
+                System.out.println(filePath);
                 filePath.delete();
                 modeloLista.remove(pos);    
             }
