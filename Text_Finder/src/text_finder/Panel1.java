@@ -55,7 +55,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 public class Panel1 extends JPanel{
     JButton Buscar;
     JButton Borrar;
-    JTextField Barra;
+    static JTextField Barra;
     MouseListener mo;
     JButton Cargar;
     JButton Abrir;
@@ -65,7 +65,7 @@ public class Panel1 extends JPanel{
     static JScrollPane scroll;
     
     static FileOutputStream salida;
-    JList lista_Documentos;
+    static JList lista_Documentos;//Static provisional
     public static Object[] recorrer;
     public static Object[] Directorios;
     public static Object[] recorrer_borrar;
@@ -172,7 +172,7 @@ public class Panel1 extends JPanel{
                     }
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Buscar){
-                    
+                    new VentanaBusqueda().setVisible(true);
                    
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
@@ -260,17 +260,12 @@ public class Panel1 extends JPanel{
        
         int pos = lista_Documentos.getSelectedIndex();
         if (pos != -1){
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere borrar el Documento?");
+            int respuesta = JOptionPane.showConfirmDialog(null, "?Quiere borrar el Documento?");
             if (respuesta == 0){ 
                 String fichero = (String) modeloLista.get(pos);
-<<<<<<< Updated upstream
                 File file = new File("Docs");
                 String path = (file.getAbsolutePath()+"\\"+fichero);
                 System.out.println(file.getAbsolutePath());
-=======
-                File file = new File(fichero);
-                String path = ("C:\\Users\\arman\\OneDrive\\Documentos\\Segundo semestre\\datos1\\ProyectoDatosI-2\\Text_Finder\\Docs\\" + file.getName());
->>>>>>> Stashed changes
                 File filePath = new File(path);
                 System.out.println(filePath);
                 filePath.delete();
