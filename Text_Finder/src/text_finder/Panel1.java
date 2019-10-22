@@ -263,8 +263,9 @@ public class Panel1 extends JPanel{
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere borrar el Documento?");
             if (respuesta == 0){ 
                 String fichero = (String) modeloLista.get(pos);
-                File file = new File(fichero);
-                String path = (file.getName());
+                File file = new File("Docs");
+                String path = (file.getAbsolutePath()+"\\"+fichero);
+                System.out.println(file.getAbsolutePath());
                 File filePath = new File(path);
                 System.out.println(filePath);
                 filePath.delete();
