@@ -11,11 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
+import static text_finder.Panel1.Barra;
+import static text_finder.Panel1.modeloLista;
+
 
 /**
  *
@@ -23,6 +28,7 @@ import javax.swing.text.Highlighter;
  */
 public class VentanaBusqueda extends javax.swing.JFrame {
 
+    DefaultListModel moLista;
     /**
      * Creates new form VentanaBusqueda
      */
@@ -58,14 +64,14 @@ public class VentanaBusqueda extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-
+        
         jScrollPane1 = new javax.swing.JScrollPane();
         t1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         t1.setColumns(20);
         t1.setRows(5);
@@ -77,12 +83,19 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        
+        moLista = new DefaultListModel();
+        for(Object element : modeloLista.toArray() ){
+            
+            moLista.addElement(element.toString());
+        }
+        jList1 = new JList(moLista);
+        /*jList1.setModel(new javax.swing.AbstractListModel() {
+            
+            String[] strings = lista_Documentos;;
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
-        });
+        });*/
         jScrollPane2.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,19 +132,20 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        buscarpalabra(t1,"Palabra");
+        buscarpalabra(t1,Barra.getText());
+        
     }                                        
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -146,16 +160,16 @@ public class VentanaBusqueda extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       /* java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaBusqueda().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;

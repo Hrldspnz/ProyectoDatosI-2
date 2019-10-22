@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -65,12 +64,12 @@ public class Panel1 extends JPanel{
     static JScrollPane scroll;
     
     static FileOutputStream salida;
-    static JList lista_Documentos;//Static provisional
+    JList lista_Documentos;
     public static Object[] recorrer;
     public static Object[] Directorios;
     public static Object[] recorrer_borrar;
     
-    DefaultListModel modeloLista;
+    static DefaultListModel modeloLista;//provisional
     JLabel Texto_doc;
     
     public Panel1 (){
