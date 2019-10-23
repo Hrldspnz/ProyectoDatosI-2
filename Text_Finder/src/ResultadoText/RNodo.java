@@ -23,20 +23,20 @@ public class RNodo {
     this.Resultado = new Vector<>();
     }
     
-    public Object getDoc(){
+    public Object getDoc(){//obtiene nombre del doc
         return this.Doc;
     }
-    public void setDoc(Object docName){
+    public void setDoc(Object docName){//pone el nombre del doc
         this.Doc = docName;
     }
     
-    public Object getText(int index){
+    public Object getText(int index){//Obtiene el fragmento de texto
         return this.Resultado.get(index);
     }
-    public void AddText(String texto){
+    public void AddText(String texto){//Añade un fragmento de texto
         this.Resultado.add(texto);
     }
-    public void AddTextos(Vector<String> texto){
+    public void AddTextos(Vector<String> texto){//Añade un vector con fragmentos de texto
         int i = 0;
         while(i <= texto.size()){
             this.Resultado.addElement(texto.elementAt(i));
@@ -45,10 +45,10 @@ public class RNodo {
         
     }
     
-    public void setNext(RNodo next){
+    public void setNext(RNodo next){//Añade el nodo siguiente
         this.next = next;
     }
-    public RNodo getNext() { 
+    public RNodo getNext() { //devuelve el nodo siguiente
         return this.next; 
     }
 }
