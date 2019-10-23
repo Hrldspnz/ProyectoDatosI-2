@@ -68,6 +68,7 @@ public class Panel1 extends JPanel{
     public static Object[] recorrer;
     public static Object[] Directorios;
     public static Object[] recorrer_borrar;
+    public static ListaEnlazada Arbol;
     
     static DefaultListModel modeloLista;//provisional
     JLabel Texto_doc;
@@ -75,6 +76,8 @@ public class Panel1 extends JPanel{
     public Panel1 (){
         this.setBackground(new java.awt.Color(102, 203, 175));
         this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
+        
+        Arbol = new ListaEnlazada();
         
         Font fuente = new Font ("TimesRoman", Font.BOLD, 20);
         
@@ -171,6 +174,11 @@ public class Panel1 extends JPanel{
                     }
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Buscar){
+                    try {
+                        parsear();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     new VentanaBusqueda().setVisible(true);
                    
                 }
@@ -192,7 +200,7 @@ public class Panel1 extends JPanel{
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Orden){
                     
-                    String[] options = {"Nombre", "Fecha", "Tamaño"};
+                    String[] options = {"Nombre", "Fecha", "Tamaï¿½o"};
                     int x = JOptionPane.showOptionDialog(null, "Seleccione como desea ordenar los archivos","Ordenar por",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                     
@@ -219,7 +227,7 @@ public class Panel1 extends JPanel{
                     Texto.setText(null);
                     
                     String text = letra2;
-                    separar();
+                    
                     Texto.setText(text);
                     
                     
@@ -299,7 +307,7 @@ public class Panel1 extends JPanel{
 
 
             paragraphs.stream().forEach((para) -> {
-                System.out.println(para.getText());
+                
                 letra2 = para.getText();
             });
             fis.close();
@@ -374,8 +382,72 @@ public class Panel1 extends JPanel{
         
     }
     
-    public void separar(){
-        String[] parts = letra2.split(" ");
+    
+        public void Parseo(File Leer) throws IOException{
+            FileReader File;
+            File = new FileReader(Leer);
+
+                        int c = 0;
+                        
+                        while(c != -1){
+
+                            c = File.read();
+                            
+                            char letra = (char)c;
+                            String letra3 = Character.toString(letra);
+                            
+
+                            if(letra2 == null){
+                                letra2 = letra3;
+                            }else{
+                                letra2 += letra3;
+    }
+  }
+        }
+                        
+    public void parsear() throws IOException{
+        Object[] resultados;
+        
+        for (int x=0;x<Directorios.length;x++){
+               Parseo((File) Directorios[x]);
+               separar((File) Directorios[x]);
+               
+              
+                }
+        
+    }
+    
+    public void separar(File archivo){
+        String separadores = "[\\ \\.\\,\\?\\ï¿½\\!\\=]";
+        String[] parts = letra2.split(separadores);
+       
+        
+        for (int x=0;x<parts.length;x++){
+            
+            if (x == parts.length-1){
+                           Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x - 1] + " " + parts[x - 2] + " " + parts[x - 3] + " " + parts[x - 4], Arbol.raiz);
+            }
+            else if (x == parts.length-2){
+                           Arbol.agregar(parts[x - 3], archivo, parts[x - 2] + " " + parts[x - 1] + " " + parts[x] + " " + parts[x + 1], Arbol.raiz);
+            }
+            else if (x == parts.length-3){
+                           Arbol.agregar(parts[x - 2], archivo, parts[x - 1] + " " + parts[x] + " " + parts[x + 1] + " " + parts[x + 2], Arbol.raiz);
+            }
+            else if (x == parts.length-4){
+                           Arbol.agregar(parts[x - 1], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3], Arbol.raiz);
+            }
+            else{
+                            Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3] + " " + parts[x + 4], Arbol.raiz);
+
+            }
+            
+        }
+        
+        String Busca = Barra.getText();
+        Arbol.Busqueda(Arbol.raiz, Busca);
+        
+        
+        
         
     }
     

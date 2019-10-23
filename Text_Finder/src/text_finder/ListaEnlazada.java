@@ -23,32 +23,62 @@ public class ListaEnlazada {
         Nodo nuevo = new Nodo(Word, Archivo, Asociado);
         if (raiz == null){
             raiz = nuevo;
+            
         } else{
             Nodo auxiliar = comparar;
             Nodo padre;
             while (true){
                 padre = auxiliar;
-                if(padre.getTexto().compareToIgnoreCase(Word) == 1){
+                if(padre.getTexto().compareToIgnoreCase(Word) == 0){
                     auxiliar = auxiliar.getIzquierda();
                     if (auxiliar == null){
                         padre.setIzquierda(nuevo);
                         return;
-                    }else{
-                        agregar(Word, Archivo, Asociado, auxiliar);
                     }
                     
                     
-                }else{
+                }else if (padre.getTexto().compareToIgnoreCase(Word) > 0){
                     auxiliar = auxiliar.getDerecha();
                     if(auxiliar == null){
                         padre.setDerecha(nuevo);
                         return;
-                    }else{
-                        agregar(Word, Archivo, Asociado, auxiliar);
+                    }
+                }else{
+                    auxiliar = auxiliar.getIzquierda();
+                    if (auxiliar == null){
+                        padre.setIzquierda(nuevo);
+                        return;
                     }
                 }
             }
         }
         
+    }
+    
+    public void Busqueda(Nodo comparar, String word){
+        if (comparar.getString().compareToIgnoreCase(word) == 0){
+            System.out.println(comparar.getTexto());  
+            if (comparar.getDerecha() != null){
+                Busqueda(comparar.getDerecha(), word);
+            }  
+            
+        }else if (comparar.getString().compareToIgnoreCase(word) > 0){  
+            if (comparar.getDerecha() != null){
+                Busqueda(comparar.getDerecha(), word);
+            }
+            
+            
+        }else if (comparar.getString().compareToIgnoreCase(word) < 0){
+            if (comparar.getIzquierda() != null){
+                Busqueda(comparar.getIzquierda(), word);
+            }
+        }
+    }
+    public void recorrer(Nodo r){
+        if(r != null){
+            recorrer(r.getIzquierda());
+            System.out.println(r.getString());
+            recorrer(r.getDerecha());
+        }
     }
 }
