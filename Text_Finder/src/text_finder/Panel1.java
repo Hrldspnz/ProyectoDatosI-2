@@ -179,7 +179,7 @@ public class Panel1 extends JPanel{
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    new VentanaBusqueda().setVisible(true);
+                    //new VentanaBusqueda().setVisible(true);
                    
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
