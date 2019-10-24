@@ -179,7 +179,7 @@ public class Panel1 extends JPanel{
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //new VentanaBusqueda().setVisible(true);
+                    new VentanaBusqueda().setVisible(true);
                    
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
@@ -307,8 +307,11 @@ public class Panel1 extends JPanel{
 
 
             paragraphs.stream().forEach((para) -> {
-                
-                letra2 = para.getText();
+                if (letra2 == null){
+                    letra2 = para.getText();
+                }else{
+                    letra2 += para.getText();
+                }
             });
             fis.close();
         } catch (Exception e){
