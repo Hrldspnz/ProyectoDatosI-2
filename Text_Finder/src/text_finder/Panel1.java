@@ -401,7 +401,7 @@ public class Panel1 extends JPanel{
         //scroll.setBounds(10, 136, 390, 250);
         
         FileReader entrada;
-        int pos = lista_Documentos.getSelectedIndex();
+    
         letra2 = null;
         
         try {
@@ -500,6 +500,9 @@ public class Panel1 extends JPanel{
         Object[] resultados;
         
         for (int x=0;x<Directorios.length;x++){
+                   
+                      // System.out.println(Directorios[x]);
+
                Parseo((File) Directorios[x]);
                separar((File) Directorios[x]);
                letra2 = null;
@@ -510,10 +513,10 @@ public class Panel1 extends JPanel{
     }
     
     public void separar(File archivo){
-        String separadores = "[\\ \\.\\,\\?\\�\\!\\=]";
+        String separadores = "[\\ \\.\\,\\?\\!\\=\\-]";
         
         parts = letra2.split(separadores);
-        System.out.println(parts.length);
+        //System.out.println(parts.length);
         
         for (int x=0;x<parts.length;x++){
             if(parts.length == 1){

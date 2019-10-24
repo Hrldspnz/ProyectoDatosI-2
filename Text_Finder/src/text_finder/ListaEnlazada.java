@@ -57,7 +57,7 @@ public class ListaEnlazada {
     
     public void Busqueda(Nodo comparar, String word){
         if (comparar.getString().compareToIgnoreCase(word) == 0){
-            System.out.println(comparar.getTexto());  
+            System.out.println(comparar.getArchivo());  
             if (comparar.getDerecha() != null){
                 Busqueda(comparar.getDerecha(), word);
             }  
