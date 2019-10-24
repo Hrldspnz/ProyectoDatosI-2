@@ -314,9 +314,9 @@ public class Panel1 extends JPanel{
 
             paragraphs.stream().forEach((para) -> {
                 if (letra2 == null){
-                    letra2 = para.getText();
+                    letra2 = para.getText()+"\n";
                 }else{
-                    letra2 += para.getText();
+                    letra2 += para.getText()+"\n";
                 }
             });
             fis.close();
