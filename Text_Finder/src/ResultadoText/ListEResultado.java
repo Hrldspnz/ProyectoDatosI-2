@@ -5,6 +5,8 @@
  */
 package ResultadoText;
 
+import java.io.File;
+
 /**
  *
  * @author Harold
@@ -16,11 +18,11 @@ public class ListEResultado {
     public ListEResultado(){
         this.head = null;
     }
-    public void addDocument(String Doc){
-        RNodo NBnode = new RNodo();
+    public void addDocument(File Doc){
+        RNodo NBnode = new RNodo(Doc);
         if (this.head == null){
             this.head = NBnode;
-            this.head.setDoc(Doc);
+            
 
         }else{
             RNodo act = this.head;
@@ -43,6 +45,14 @@ public class ListEResultado {
         } 
         return currNode;         
         
+    }
+    public RNodo resultado(RNodo r){
+        if(r != null){
+            resultado(r.getNext());
+            
+ 
+        }
+        return r;
     }
 }
 

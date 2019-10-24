@@ -7,6 +7,8 @@ package text_finder;
 
 
 
+import ResultadoText.ListEResultado;
+import ResultadoText.RNodo;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -78,6 +80,8 @@ public class Panel1 extends JPanel{
     static String[] parts;
     
     static Vector<String> datos;
+    
+    static ListEResultado resultado;
     
     public Panel1 (){
         this.setBackground(new java.awt.Color(102, 203, 175));
@@ -497,18 +501,21 @@ public class Panel1 extends JPanel{
         }
                         
     public void parsear() throws IOException{
-        Object[] resultados;
+        resultado = new ListEResultado();
         
         for (int x=0;x<Directorios.length;x++){
                    
-                      // System.out.println(Directorios[x]);
-
+                      
                Parseo((File) Directorios[x]);
                separar((File) Directorios[x]);
                letra2 = null;
+               resultado.addDocument((File) Directorios[x]);
                 }
         String Busca = Barra.getText();
         Arbol.Busqueda(Arbol.raiz, Busca);
+        recorrer(Arbol.raiz, resultado.head);
+        System.out.println("aqui comienza");
+        resultado.resultado(resultado.head);
         
     }
     
@@ -542,17 +549,29 @@ public class Panel1 extends JPanel{
             
         }
         
-        
-        
-        
-        
+    }
+    public void recorrer(Nodo r, RNodo Archivo){
+        if(r != null){ 
+            if (Archivo.Doc.getName() == r.getArchivo().getName()){
+                Archivo.AddText(r.getTexto());
+                if (r.getIzquierda() != null){
+                    recorrer(r.getIzquierda(), Archivo); 
+                }else{
+                    recorrer(r.getDerecha(), Archivo); 
+                }
+            }else{
+                recorrer(r.getIzquierda(), Archivo.getNext());       
+            }       
         
     }
     
+    
+    
+    } 
 
     
-    
+}
     
    
     
-}
+

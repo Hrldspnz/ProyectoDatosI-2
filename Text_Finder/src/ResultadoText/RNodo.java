@@ -5,6 +5,7 @@
  */
 package ResultadoText;
 
+import java.io.File;
 import java.util.Vector;
 
 /**
@@ -13,20 +14,20 @@ import java.util.Vector;
  */
 public class RNodo {
     public RNodo next;
-    public Object Doc;
+    public File Doc;
     public Vector<String> Resultado;
     
     
-    public RNodo(){
+    public RNodo(File Archivo){
     this.next = null;
-    this.Doc = null;
+    this.Doc = Archivo;
     this.Resultado = new Vector<>();
     }
     
-    public Object getDoc(){//obtiene nombre del doc
+    public File getDoc(){//obtiene nombre del doc
         return this.Doc;
     }
-    public void setDoc(Object docName){//pone el nombre del doc
+    public void setDoc(File docName){//pone el nombre del doc
         this.Doc = docName;
     }
     
