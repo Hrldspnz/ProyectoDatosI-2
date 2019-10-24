@@ -37,7 +37,9 @@ import static text_finder.Panel2.Texto;
 import static Sort.Quicksort.Ordenar;
 import static Sort.RadixSort.radixsort;
 import static Sort.BubbleSort.bubble_srt;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -72,6 +74,10 @@ public class Panel1 extends JPanel{
     
     static DefaultListModel modeloLista;//provisional
     JLabel Texto_doc;
+    
+    static String[] parts;
+    
+    static Vector<String> datos;
     
     public Panel1 (){
         this.setBackground(new java.awt.Color(102, 203, 175));
@@ -364,16 +370,19 @@ public class Panel1 extends JPanel{
 
                             c = entrada.read();
                             
-                            char letra = (char)c;
-                            String letra3 = Character.toString(letra);
+                            if (c != -1){
+                                char letra = (char)c;
+                            
+                                String letra3 = Character.toString(letra);
+                            
                             
 
-                            if(letra2 == null){
-                                letra2 = letra3;
-                            }else{
-                                letra2 += letra3;
+                                if(letra2 == null){
+                                    letra2 = letra3;
+                                }else{
+                                    letra2 += letra3;
                             }
-
+                            }
                         }
 
 
@@ -387,25 +396,104 @@ public class Panel1 extends JPanel{
     
     
         public void Parseo(File Leer) throws IOException{
-            FileReader File;
-            File = new FileReader(Leer);
+            
+                 //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //scroll.setBounds(10, 136, 390, 250);
+        
+        FileReader entrada;
+        int pos = lista_Documentos.getSelectedIndex();
+        letra2 = null;
+        
+        try {
+          
+            File file = new File(Leer.getAbsolutePath());
+            
+            FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+
+            XWPFDocument document = new XWPFDocument(fis);
+
+            List<XWPFParagraph> paragraphs = document.getParagraphs();
+
+
+            paragraphs.stream().forEach((para) -> {
+                
+                letra2 = para.getText();
+            });
+            fis.close();
+        } catch (Exception e){
+                
+              try{
+                
+                PDDocument document = PDDocument.load(new File(Leer.getAbsolutePath()));
+                AccessPermission ap = document.getCurrentAccessPermission();
+                if (!ap.canExtractContent())
+                {
+                    throw new IOException("You do not have permission to extract text");
+                }
+
+                PDFTextStripper stripper = new PDFTextStripper();
+
+                stripper.setSortByPosition(true);
+
+                for (int p = 1; p <= document.getNumberOfPages(); ++p)
+                {
+
+                    stripper.setStartPage(p);
+                    stripper.setEndPage(p);
+
+                    String text = stripper.getText(document);
+
+                    String pageStr = String.format("page %d:", p);
+                    System.out.println(pageStr);
+                    for (int i = 0; i < pageStr.length(); ++i)
+                    {
+                        System.out.print("-");
+                    }
+                    String letra3 = text.trim();
+
+                    if(letra2 == null){
+                        letra2 = letra3;
+                    }else{
+                        letra2 += letra3;
+                    }
+
+
+                }
+                document.close();
+                }catch(Exception exc){
+                    try{                    
+                        entrada = new FileReader(Leer);
 
                         int c = 0;
                         
                         while(c != -1){
 
-                            c = File.read();
+                            c = entrada.read();
                             
-                            char letra = (char)c;
-                            String letra3 = Character.toString(letra);
+                            if (c != -1){
+                                char letra = (char)c;
+                            
+                                String letra3 = Character.toString(letra);
+                            
                             
 
-                            if(letra2 == null){
-                                letra2 = letra3;
-                            }else{
-                                letra2 += letra3;
-    }
-  }
+                                if(letra2 == null){
+                                    letra2 = letra3;
+                                }else{
+                                    letra2 += letra3;
+                            }
+                            }
+                        }
+
+
+                    } catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                }                
+            }
+            
+           
+
         }
                         
     public void parsear() throws IOException{
@@ -414,40 +502,44 @@ public class Panel1 extends JPanel{
         for (int x=0;x<Directorios.length;x++){
                Parseo((File) Directorios[x]);
                separar((File) Directorios[x]);
-               
-              
+               letra2 = null;
                 }
+        String Busca = Barra.getText();
+        Arbol.Busqueda(Arbol.raiz, Busca);
         
     }
     
     public void separar(File archivo){
         String separadores = "[\\ \\.\\,\\?\\�\\!\\=]";
-        String[] parts = letra2.split(separadores);
-       
+        
+        parts = letra2.split(separadores);
+        System.out.println(parts.length);
         
         for (int x=0;x<parts.length;x++){
+            if(parts.length == 1){
+                           Arbol.agregar(parts[x], archivo, parts[x], Arbol.raiz);
+                           
+            }
             
-            if (x == parts.length-1){
+            else if (x == parts.length - 1){
                            Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x - 1] + " " + parts[x - 2] + " " + parts[x - 3] + " " + parts[x - 4], Arbol.raiz);
             }
             else if (x == parts.length-2){
-                           Arbol.agregar(parts[x - 3], archivo, parts[x - 2] + " " + parts[x - 1] + " " + parts[x] + " " + parts[x + 1], Arbol.raiz);
+                           Arbol.agregar(parts[x], archivo, parts[x - 2] + " " + parts[x - 1] + " " + parts[x] + " " + parts[x + 1], Arbol.raiz);
             }
             else if (x == parts.length-3){
-                           Arbol.agregar(parts[x - 2], archivo, parts[x - 1] + " " + parts[x] + " " + parts[x + 1] + " " + parts[x + 2], Arbol.raiz);
+                           Arbol.agregar(parts[x], archivo, parts[x - 1] + " " + parts[x] + " " + parts[x + 1] + " " + parts[x + 2], Arbol.raiz);
             }
             else if (x == parts.length-4){
-                           Arbol.agregar(parts[x - 1], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3], Arbol.raiz);
+                           Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3], Arbol.raiz);
             }
             else{
                             Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3] + " " + parts[x + 4], Arbol.raiz);
-
             }
             
         }
         
-        String Busca = Barra.getText();
-        Arbol.Busqueda(Arbol.raiz, Busca);
+        
         
         
         

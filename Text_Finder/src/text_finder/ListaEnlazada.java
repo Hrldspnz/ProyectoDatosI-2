@@ -77,7 +77,6 @@ public class ListaEnlazada {
     public void recorrer(Nodo r){
         if(r != null){
             recorrer(r.getIzquierda());
-            System.out.println(r.getString());
             recorrer(r.getDerecha());
         }
     }
