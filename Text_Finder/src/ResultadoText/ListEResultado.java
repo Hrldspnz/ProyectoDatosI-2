@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ResultadoText;
 
 import java.io.File;
 
 /**
- *
+ * Clase para la lista enlazada que almacena los resultados de la busqueda
  * @author Harold
  */
 public class ListEResultado {
@@ -18,6 +13,11 @@ public class ListEResultado {
     public ListEResultado(){
         this.head = null;
     }
+    
+    /**
+     * Metodo para insertar un nuevo doc a la lista de resultados
+     * @param Doc Recibe el documento a insertar en la lista
+     */
     public void addDocument(File Doc){
         RNodo NBnode = new RNodo(Doc);
         if (this.head == null){
@@ -35,6 +35,12 @@ public class ListEResultado {
            
         } this.size++;
     }
+    
+    /**
+     * Metodo que busca un elemento dentro de la lista enlazada
+     * @param ind Recibe el indice de la posicion donde se encuentra el elemento buscado
+     * @return Devuelve el nodo buscado
+     */
     public RNodo Search(int ind){
         int SIndex = 0; 
         RNodo currNode = this.head; 
@@ -46,6 +52,11 @@ public class ListEResultado {
         return currNode;         
         
     }
+    
+    /**
+     * Metodo para obtener el elemento final de la lista
+     * @return Devuelve el nodo al final de la lista
+     */
     public RNodo Last(){
         RNodo act = this.head;
         while(act.next != null){
@@ -54,7 +65,11 @@ public class ListEResultado {
         
         return act;
     }
-       
+    
+    /**
+     * Metodo que imprime la lista de los documentos y sus fragmentos de texto
+     * 
+     */
     public void imprimirL(){
         
         RNodo r = this.head;

@@ -300,7 +300,9 @@ public class Panel1 extends JPanel{
         Abrir.addMouseListener(mo);
 }
     
-    //Metodo para eliminar documentos
+    /**
+     * Metodo para eliminar documentos/ 
+     */
     public void EliminarDocumentos() throws IOException{
        
         int pos = lista_Documentos.getSelectedIndex();
@@ -325,10 +327,6 @@ public class Panel1 extends JPanel{
      */
     
     public void texto() throws IOException{
-        
-        
-        //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        //scroll.setBounds(10, 136, 390, 250);
         
         FileReader entrada;
         int pos = lista_Documentos.getSelectedIndex();
@@ -426,12 +424,12 @@ public class Panel1 extends JPanel{
             }
         
     }
+    
         /**
          * 
          * @param Leer  Archivo que se va a parsear
          * @throws IOException 
          */
-    
         public void Parseo(File Leer) throws IOException{
             
               
@@ -540,15 +538,11 @@ public class Panel1 extends JPanel{
         datos = new Vector<>();
         String Busca = Barra.getText();
         for (int x=0;x<Directorios.length;x++){
-          //  System.out.println(Directorios[x]);
             Arbol = new ListaEnlazada();
             Parseo((File) Directorios[x]);
             separar((File) Directorios[x]);
             letra2 = null;
             Arbol.Busqueda(Arbol.raiz, Busca,(File) Directorios[x]);//busca la palabra y el doc al que pertenece
-            for(String fragtexto : datos){
-            //    System.out.println("texto " +fragtexto + " doc "+Directorios[x]);
-            }
             
             if(datos.isEmpty()==false){//A�ade los datos del vector donde se guardan los fragmentos
                 resultado.addDocument((File) Directorios[x]);

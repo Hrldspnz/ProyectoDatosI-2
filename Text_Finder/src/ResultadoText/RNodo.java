@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ResultadoText;
 
 import java.io.File;
 import java.util.Vector;
 
 /**
- *
+ * Clase que crea el nodo perteneciente a la lista enlazada de los resultados
  * @author Harold
  */
 public class RNodo {
@@ -34,9 +29,19 @@ public class RNodo {
     public String getText(int index){//Obtiene el fragmento de texto
         return this.Resultado.elementAt(index);
     }
+    
+    /**
+     * Metodo para añadir un fragmento de texto
+     * @param texto Recibe el fragmento de texto a insertar
+     */
     public void AddText(String texto){//Añade un fragmento de texto
         this.Resultado.add(texto);
     }
+    
+     /**
+     * Metodo para añadir varios fragmentos de texto
+     * @param texto Recibe un vector con los fragmetos de texto a insertar
+     */
     public void AddTextos(Vector<String> texto){//Añade un vector con fragmentos de texto
         int i = 0;
         while(i < texto.size()){

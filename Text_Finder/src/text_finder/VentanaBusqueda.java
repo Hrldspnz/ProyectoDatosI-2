@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package text_finder;
 
 
@@ -20,7 +15,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import static text_finder.Panel1.Barra;
-import static text_finder.Panel1.modeloLista;
 import static text_finder.Panel1.resultado;
 
 
@@ -70,7 +64,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     /** 
      * Metodo que inicia todos los componentes de la ventanas 
-     *  
+     * 
      */                                      
     private void initComponents() {
         
@@ -167,7 +161,6 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                        
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
         resaltarpalabra(t1,Barra.getText());
         
     }      
