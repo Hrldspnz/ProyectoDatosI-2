@@ -20,6 +20,7 @@ public class Panel2 extends JPanel{
     static JScrollPane Scroll;
     
     public Panel2(){
+        //Se le agrega color de bondo y bordes al panel y se crea un textarea donde se mostrara el texto de un archivo
         this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
         Texto = new JTextArea();
         Texto.setBounds(0, 0, 917, 699);

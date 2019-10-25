@@ -10,7 +10,7 @@ import static text_finder.Panel1.datos;
 
 /**
  *
- * @author arman
+ * @author Armando
  */
 public class ListaEnlazada {
     
@@ -20,6 +20,13 @@ public class ListaEnlazada {
         raiz = null;
     }
     
+    /**
+     * 
+     * @param Word  Palabra del texto
+     * @param Archivo   Archivo al cual pertenece
+     * @param Asociado  Texto asociado a la palabra
+     * @param comparar  Nodo a comparar al agregarlo al arbol
+     */
     public void agregar(String Word, File Archivo, String Asociado, Nodo comparar){
         Nodo nuevo = new Nodo(Word, Archivo, Asociado);
         if (raiz == null){
@@ -58,9 +65,9 @@ public class ListaEnlazada {
     
     public void Busqueda(Nodo comparar, String word, File dir){
         //System.out.println(comparar.getString()+"---"+ word + "---"+comparar.Archivo.getName()+"---"+dir.getName());
-        if (comparar.getString().compareToIgnoreCase(word) == 0 && comparar.Archivo.getName().compareTo(dir.getName())==0){//Si encuentra la palabra y pertence al doc especificado añade el fragmento de texto
+        if (comparar.getString().compareToIgnoreCase(word) == 0 && comparar.Archivo.getName().compareTo(dir.getName())==0){//Si encuentra la palabra y pertence al doc especificado aï¿½ade el fragmento de texto
             //System.out.println(word + "---"+dir);
-            datos.addElement(comparar.Texto);//Añadir Fragmento de texto
+            datos.addElement(comparar.Texto);//Aï¿½adir Fragmento de texto
            
             if (comparar.getDerecha() != null){
                 Busqueda(comparar.getDerecha(), word, dir);
@@ -78,14 +85,8 @@ public class ListaEnlazada {
             }
         }
     }
-    /**
-    public void recorrer(Nodo r){
-        if(r != null){
-            recorrer(r.getIzquierda());
-            System.out.println(r.getArchivo());
-            recorrer(r.getDerecha());
-        }
-    }
-    **/
+    
+
+    
 }
 

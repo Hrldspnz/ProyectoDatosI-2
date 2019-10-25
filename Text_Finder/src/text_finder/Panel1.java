@@ -84,37 +84,47 @@ public class Panel1 extends JPanel{
     static ListEResultado resultado;
     
     public Panel1 (){
+        
+        // Se le aï¿½ade un color de fondo y bordes al panel
+        
         this.setBackground(new java.awt.Color(102, 203, 175));
         this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
         
+        //Arbol donde se almacenan las palabras
         Arbol = new ListaEnlazada();
         
         Font fuente = new Font ("TimesRoman", Font.BOLD, 20);
         
+        // Almacena el texto a buscar que escriba el usuario
         Barra = new JTextField();
         Barra.setBounds(10, 20, 300, 30);
         this.add(Barra);
         
+        //Boton que inicializa los metodos de busqueda
         Buscar = new JButton();
         Buscar.setBounds(330, 20, 80, 30);
         Buscar.setText("Buscar");
         this.add(Buscar);
         
+        //Boton para borrar documentos
         Borrar = new JButton();
         Borrar.setBounds(170, 150, 80, 30);
         Borrar.setText("Borrar");
         this.add(Borrar);
         
+        //Boton para abrir un documento y leerlo
         Abrir = new JButton();
         Abrir.setBounds(170, 200, 80, 30);
         Abrir.setText("Abrir");
         this.add(Abrir);
         
+        //Boton de ordenamiento de los documentos
         Orden = new JButton();
         Orden.setBounds(250, 150, 95, 30);
         Orden.setText("Ordenar");
         this.add(Orden);
         
+        //Boton para cargar archivos
         Cargar = new JButton();
         Cargar.setBounds(60, 660, 300, 40);
         Cargar.setText("Cargar Archivo");
@@ -126,12 +136,14 @@ public class Panel1 extends JPanel{
         Texto_doc.setFont(fuente);
         this.add(Texto_doc);
         
+        // Al iniciar el programa se recorre todos los documentos almacenados
         File dir = new File("Docs");
         recorrer = dir.list();
         Directorios = dir.listFiles();
         
         modeloLista = new DefaultListModel();
         
+        //Ingresa los nombres de los archivos en la lista de documentos
         if (recorrer == null){
             System.out.println("No hay ficheros en el directorio especificado");
         }else { 
@@ -143,15 +155,20 @@ public class Panel1 extends JPanel{
             
             
 }
+        // LIsta de documentos del programa
+        
         lista_Documentos = new JList(modeloLista);
         lista_Documentos.setBounds(8, 150, 150, 160);
         this.add(lista_Documentos);
         
+        //Eventos del mouse
     
         mo = new MouseListener(){
 
             @Override
+           
             public void mouseClicked(MouseEvent e) {
+                //Evento que capta si se presiono el boton de cargar
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Cargar){
                     try {
                         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -164,6 +181,7 @@ public class Panel1 extends JPanel{
                     } catch (UnsupportedLookAndFeelException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    //Metodos para cargar los documentos
                     JFileChooser File = new JFileChooser();
                     File.showOpenDialog(Cargar);
                     File Archivo = File.getSelectedFile();
@@ -183,6 +201,8 @@ public class Panel1 extends JPanel{
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                //Evento que capta si se presiono el boton de buscar
+
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Buscar){
                     try {
                         resultado.head = null;
@@ -198,6 +218,8 @@ public class Panel1 extends JPanel{
                     
                    
                 }
+               //Evento que capta si se presiono un documento en la lista
+
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
                     try {
                         texto();
@@ -279,6 +301,7 @@ public class Panel1 extends JPanel{
         Abrir.addMouseListener(mo);
 }
     
+    //Metodo para eliminar documentos
     public void EliminarDocumentos() throws IOException{
        
         int pos = lista_Documentos.getSelectedIndex();
@@ -301,6 +324,7 @@ public class Panel1 extends JPanel{
      * Metodo que se encarga de leer los documentos
      * @author Harold EM, Armando
      */
+    
     public void texto() throws IOException{
         
         
@@ -403,12 +427,15 @@ public class Panel1 extends JPanel{
             }
         
     }
-    
+        /**
+         * 
+         * @param Leer  Archivo que se va a parsear
+         * @throws IOException 
+         */
     
         public void Parseo(File Leer) throws IOException{
             
-                 //scroll = new JScrollPane(Texto, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        //scroll.setBounds(10, 136, 390, 250);
+              
         
         FileReader entrada;
     
@@ -505,6 +532,8 @@ public class Panel1 extends JPanel{
            
 
         }
+        
+        //Metodo para parsear documentos
                         
     public void parsear() throws IOException{
         resultado = new ListEResultado();
@@ -520,7 +549,7 @@ public class Panel1 extends JPanel{
                 System.out.println("texto " +fragtexto + " doc "+Directorios[x]);
             }
             
-            if(datos.isEmpty()==false){//Añade los datos del vector donde se guardan los fragmentos
+            if(datos.isEmpty()==false){//Aï¿½ade los datos del vector donde se guardan los fragmentos
                 resultado.addDocument((File) Directorios[x]);
                 resultado.Last().AddTextos(datos);
             
@@ -531,7 +560,7 @@ public class Panel1 extends JPanel{
         //resultado.resultado(resultado.head);
         //resultado.imprimirL();
     }
-    
+    //Metodo para agregar el texto de un archivo en una variable
     public void separar(File archivo){
         String separadores = "[\\ \\.\\,\\?\\!\\=\\-]";
         
@@ -563,24 +592,7 @@ public class Panel1 extends JPanel{
         }
         
     }
-    public void recorrer(Nodo r, RNodo Archivo){
-        if(r != null){ 
-            if (Archivo.Doc.getName() == r.getArchivo().getName()){
-                Archivo.AddText(r.getTexto());
-                if (r.getIzquierda() != null){
-                    recorrer(r.getIzquierda(), Archivo); 
-                }else{
-                    recorrer(r.getDerecha(), Archivo); 
-                }
-            }else{
-                recorrer(r.getIzquierda(), Archivo.getNext());       
-            }       
-        
-    }
-    
-    
-    
-    } 
+
 
     
 }

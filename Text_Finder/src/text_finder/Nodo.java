@@ -9,7 +9,7 @@ import java.io.File;
 
 /**
  *
- * @author arman
+ * @author Armando Fallas
  */
 public class Nodo {
     
@@ -18,6 +18,13 @@ public class Nodo {
     String Texto;                    
     Nodo Izquierda;
     Nodo Derecha;
+    
+    /**
+     * 
+     * @param Word  Palabra que almacenará
+     * @param ArchivoNombre Archivo donde se encuentra la palabra
+     * @param Asociado  Texto que se encuentra alrrededor de la palabra
+     */
     
     public Nodo(String Word, File ArchivoNombre, String Asociado){
    
