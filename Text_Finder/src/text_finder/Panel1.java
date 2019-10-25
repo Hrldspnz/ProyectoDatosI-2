@@ -207,7 +207,7 @@ public class Panel1 extends JPanel{
                     try {
                         parsear();
                         if(resultado.size == 0){
-                            JOptionPane.showMessageDialog(null,"c mamo bien cabron");
+                            JOptionPane.showMessageDialog(null,"No se encontraron resultados");
                         }else{
                             new VentanaBusqueda().setVisible(true);
                         }
