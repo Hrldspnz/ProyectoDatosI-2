@@ -65,8 +65,8 @@ public class ListaEnlazada {
     
     public void Busqueda(Nodo comparar, String word, File dir){
         //System.out.println(comparar.getString()+"---"+ word + "---"+comparar.Archivo.getName()+"---"+dir.getName());
+        System.out.println(comparar.getArchivo() + " " + word + " " + dir.getName());
         if (comparar.getString().compareToIgnoreCase(word) == 0 && comparar.Archivo.getName().compareTo(dir.getName())==0){//Si encuentra la palabra y pertence al doc especificado a�ade el fragmento de texto
-            //System.out.println(word + "---"+dir);
             datos.addElement(comparar.Texto);//A�adir Fragmento de texto
            
             if (comparar.getDerecha() != null){
@@ -84,6 +84,8 @@ public class ListaEnlazada {
                 Busqueda(comparar.getIzquierda(), word, dir);
             }
         }
+                    
+
     }
     
 

@@ -91,7 +91,7 @@ public class Panel1 extends JPanel{
         this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
         
         //Arbol donde se almacenan las palabras
-        Arbol = new ListaEnlazada();
+        
         
         Font fuente = new Font ("TimesRoman", Font.BOLD, 20);
         
@@ -205,7 +205,6 @@ public class Panel1 extends JPanel{
 
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Buscar){
                     try {
-                        resultado.head = null;
                         parsear();
                         if(resultado.size == 0){
                             JOptionPane.showMessageDialog(null,"c mamo bien cabron");
@@ -536,17 +535,19 @@ public class Panel1 extends JPanel{
         //Metodo para parsear documentos
                         
     public void parsear() throws IOException{
+        
         resultado = new ListEResultado();
         datos = new Vector<>();
         String Busca = Barra.getText();
         for (int x=0;x<Directorios.length;x++){
+          //  System.out.println(Directorios[x]);
+            Arbol = new ListaEnlazada();
             Parseo((File) Directorios[x]);
             separar((File) Directorios[x]);
             letra2 = null;
-            //System.out.println(Directorios[x]);
             Arbol.Busqueda(Arbol.raiz, Busca,(File) Directorios[x]);//busca la palabra y el doc al que pertenece
             for(String fragtexto : datos){
-                System.out.println("texto " +fragtexto + " doc "+Directorios[x]);
+            //    System.out.println("texto " +fragtexto + " doc "+Directorios[x]);
             }
             
             if(datos.isEmpty()==false){//A�ade los datos del vector donde se guardan los fragmentos
@@ -555,17 +556,13 @@ public class Panel1 extends JPanel{
             
             }datos.clear();//REinicia el vector de fragmentos
         }
-        //recorrer(Arbol.raiz, resultado.head);
-        //System.out.println("aqui comienza");
-        //resultado.resultado(resultado.head);
-        //resultado.imprimirL();
+        
     }
     //Metodo para agregar el texto de un archivo en una variable
     public void separar(File archivo){
         String separadores = "[\\ \\.\\,\\?\\!\\=\\-]";
         
         parts = letra2.split(separadores);
-        //System.out.println(parts.length);
         
         for (int x=0;x<parts.length;x++){
             if(parts.length == 1){
@@ -586,6 +583,7 @@ public class Panel1 extends JPanel{
                            Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3], Arbol.raiz);
             }
             else{
+                            
                             Arbol.agregar(parts[x], archivo, parts[x] + " " + parts[x + 1] + " " + parts[x + 2] + " " + parts[x + 3] + " " + parts[x + 4], Arbol.raiz);
             }
             
