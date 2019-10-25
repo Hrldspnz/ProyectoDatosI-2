@@ -46,13 +46,27 @@ public class ListEResultado {
         return currNode;         
         
     }
-    public RNodo resultado(RNodo r){
-        if(r != null){
-            resultado(r.getNext());
-            
- 
+    public RNodo Last(){
+        RNodo act = this.head;
+        while(act.next != null){
+            act = act.next;
         }
-        return r;
+        
+        return act;
+    }
+       
+    public void imprimirL(){
+        
+        RNodo r = this.head;
+        while(r != null){
+            System.out.println(r.Doc.getName());
+            System.out.println("-------------------------------------------------");
+            for(String fragtexto : r.Resultado){
+                System.out.println(fragtexto);
+            }
+            r = r.next;
+        }
+        
     }
 }
 

@@ -31,15 +31,15 @@ public class RNodo {
         this.Doc = docName;
     }
     
-    public Object getText(int index){//Obtiene el fragmento de texto
-        return this.Resultado.get(index);
+    public String getText(int index){//Obtiene el fragmento de texto
+        return this.Resultado.elementAt(index);
     }
     public void AddText(String texto){//Añade un fragmento de texto
         this.Resultado.add(texto);
     }
     public void AddTextos(Vector<String> texto){//Añade un vector con fragmentos de texto
         int i = 0;
-        while(i <= texto.size()){
+        while(i < texto.size()){
             this.Resultado.addElement(texto.elementAt(i));
             i++;
         }

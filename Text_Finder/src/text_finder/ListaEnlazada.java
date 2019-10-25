@@ -6,6 +6,7 @@
 package text_finder;
 
 import java.io.File;
+import static text_finder.Panel1.datos;
 
 /**
  *
@@ -55,22 +56,25 @@ public class ListaEnlazada {
         
     }
     
-    public void Busqueda(Nodo comparar, String word){
-        if (comparar.getString().compareToIgnoreCase(word) == 0){
-            System.out.println(comparar.getArchivo());  
+    public void Busqueda(Nodo comparar, String word, File dir){
+        //System.out.println(comparar.getString()+"---"+ word + "---"+comparar.Archivo.getName()+"---"+dir.getName());
+        if (comparar.getString().compareToIgnoreCase(word) == 0 && comparar.Archivo.getName().compareTo(dir.getName())==0){//Si encuentra la palabra y pertence al doc especificado añade el fragmento de texto
+            //System.out.println(word + "---"+dir);
+            datos.addElement(comparar.Texto);//Añadir Fragmento de texto
+           
             if (comparar.getDerecha() != null){
-                Busqueda(comparar.getDerecha(), word);
+                Busqueda(comparar.getDerecha(), word, dir);
             }  
             
         }else if (comparar.getString().compareToIgnoreCase(word) > 0){  
             if (comparar.getDerecha() != null){
-                Busqueda(comparar.getDerecha(), word);
+                Busqueda(comparar.getDerecha(), word, dir);
             }
             
             
         }else if (comparar.getString().compareToIgnoreCase(word) < 0){
             if (comparar.getIzquierda() != null){
-                Busqueda(comparar.getIzquierda(), word);
+                Busqueda(comparar.getIzquierda(), word, dir);
             }
         }
     }

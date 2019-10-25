@@ -185,11 +185,17 @@ public class Panel1 extends JPanel{
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Buscar){
                     try {
+                        resultado.head = null;
                         parsear();
+                        if(resultado.size == 0){
+                            JOptionPane.showMessageDialog(null,"c mamo bien cabron");
+                        }else{
+                            new VentanaBusqueda().setVisible(true);
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    new VentanaBusqueda().setVisible(true);
+                    
                    
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
@@ -502,21 +508,28 @@ public class Panel1 extends JPanel{
                         
     public void parsear() throws IOException{
         resultado = new ListEResultado();
-        
-        for (int x=0;x<Directorios.length;x++){
-                   
-                      
-               Parseo((File) Directorios[x]);
-               separar((File) Directorios[x]);
-               letra2 = null;
-               resultado.addDocument((File) Directorios[x]);
-                }
+        datos = new Vector<>();
         String Busca = Barra.getText();
-        Arbol.Busqueda(Arbol.raiz, Busca);
-        recorrer(Arbol.raiz, resultado.head);
-        System.out.println("aqui comienza");
-        resultado.resultado(resultado.head);
-        
+        for (int x=0;x<Directorios.length;x++){
+            Parseo((File) Directorios[x]);
+            separar((File) Directorios[x]);
+            letra2 = null;
+            //System.out.println(Directorios[x]);
+            Arbol.Busqueda(Arbol.raiz, Busca,(File) Directorios[x]);//busca la palabra y el doc al que pertenece
+            for(String fragtexto : datos){
+                System.out.println("texto " +fragtexto + " doc "+Directorios[x]);
+            }
+            
+            if(datos.isEmpty()==false){//Añade los datos del vector donde se guardan los fragmentos
+                resultado.addDocument((File) Directorios[x]);
+                resultado.Last().AddTextos(datos);
+            
+            }datos.clear();//REinicia el vector de fragmentos
+        }
+        //recorrer(Arbol.raiz, resultado.head);
+        //System.out.println("aqui comienza");
+        //resultado.resultado(resultado.head);
+        //resultado.imprimirL();
     }
     
     public void separar(File archivo){

@@ -6,6 +6,7 @@
 package text_finder;
 
 
+import ResultadoText.RNodo;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import static text_finder.Panel1.Barra;
 import static text_finder.Panel1.modeloLista;
+import static text_finder.Panel1.resultado;
 
 
  /** 
@@ -89,9 +91,9 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         });
         
         moLista = new DefaultListModel();
-        for(Object element : modeloLista.toArray() ){
+        for (int x=0;x<resultado.size;x++){
             
-            moLista.addElement(element.toString());
+            moLista.addElement(resultado.Search(x).Doc.getName().toString());
         }
         jList1 = new JList(moLista);
         jScrollPane2.setViewportView(jList1);
