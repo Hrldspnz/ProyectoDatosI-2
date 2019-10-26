@@ -3,6 +3,7 @@ package text_finder;
 
 import ResultadoText.RNodo;
 import java.awt.Color;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -15,7 +16,10 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import static text_finder.Panel1.Barra;
+import static text_finder.Panel1.letra2;
 import static text_finder.Panel1.resultado;
+import static text_finder.Panel1.texto;
+import static text_finder.Panel2.Texto;
 
 
  /** 
@@ -161,7 +165,11 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                        
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        resaltarpalabra(t1,Barra.getText());
+        
+        Texto.setText(null);
+        String text = letra2;
+        Texto.setText(text);
+        resaltarpalabra(Texto,Barra.getText());
         
     }      
     
@@ -171,6 +179,11 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         seleccionado = resultado.Search(jList1.getSelectedIndex());
         t1.setText(seleccionado.Resultado.elementAt(pos));
         resaltarpalabra(t1,Barra.getText());
+        try {
+            texto(jList1);
+        } catch (IOException ex) {
+            Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {

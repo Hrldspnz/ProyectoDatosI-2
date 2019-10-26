@@ -68,7 +68,7 @@ public class Panel1 extends JPanel{
     static JScrollPane scroll;
     
     static FileOutputStream salida;
-    JList lista_Documentos;
+    static JList lista_Documentos;
     public static Object[] recorrer;
     public static Object[] Directorios;
     public static Object[] recorrer_borrar;
@@ -82,6 +82,8 @@ public class Panel1 extends JPanel{
     static Vector<String> datos;
     
     static ListEResultado resultado;
+    
+    static int pos;
     
     public Panel1 (){
         
@@ -221,7 +223,7 @@ public class Panel1 extends JPanel{
 
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
                     try {
-                        texto();
+                        texto(lista_Documentos);
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -326,10 +328,10 @@ public class Panel1 extends JPanel{
      * @author Harold EM, Armando
      */
     
-    public void texto() throws IOException{
+    public static void texto(JList lista_Documentos) throws IOException{
         
         FileReader entrada;
-        int pos = lista_Documentos.getSelectedIndex();
+        pos = lista_Documentos.getSelectedIndex();
         letra2 = null;
         
         try {
