@@ -65,10 +65,23 @@ public class ListaEnlazada {
     
     public void Busqueda(Nodo comparar, String word, File dir){
         //System.out.println(comparar.getString()+"---"+ word + "---"+comparar.Archivo.getName()+"---"+dir.getName());
+        String[] busqueda = word.split(" ");
+        String[] frase = comparar.Texto.split(" ");
         System.out.println(comparar.getArchivo() + " " + word + " " + dir.getName());
-        if (comparar.getString().compareToIgnoreCase(word) == 0 && comparar.Archivo.getName().compareTo(dir.getName())==0){//Si encuentra la palabra y pertence al doc especificado a�ade el fragmento de texto
-            datos.addElement(comparar.Texto);//A�adir Fragmento de texto
-           
+        if (comparar.getString().compareToIgnoreCase(busqueda[0]) == 0 && comparar.Archivo.getName().compareTo(dir.getName())==0){//Si encuentra la palabra y pertence al doc especificado a�ade el fragmento de texto
+            if(busqueda.length == 0){
+                datos.addElement(comparar.Texto);//A�adir Fragmento de texto
+            }else{
+                boolean result = true;
+                for (int i = 0; i < busqueda.length; i++){
+                    if(frase[i]!= null &&busqueda[i].compareToIgnoreCase(frase[i])!=0){
+                        result = false;
+                    }
+                }if(result==true){
+                    datos.addElement(comparar.Texto);
+                }
+                System.out.println("eso papa "+ result);
+            }
             if (comparar.getDerecha() != null){
                 Busqueda(comparar.getDerecha(), word, dir);
             }  
