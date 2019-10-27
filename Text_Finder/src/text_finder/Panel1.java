@@ -448,9 +448,13 @@ public class Panel1 extends JPanel{
     
         letra2 = null;
         
+        File path = Leer;
+
         try {
           
-            File file = new File(Leer.getAbsolutePath());
+            File dir = (File)path;
+
+            File file = new File(dir.getAbsolutePath());
             
             FileInputStream fis = new FileInputStream(file.getAbsolutePath());
 
@@ -460,8 +464,11 @@ public class Panel1 extends JPanel{
 
 
             paragraphs.stream().forEach((para) -> {
-                
-                letra2 = para.getText();
+                if (letra2 == null){
+                    letra2 = para.getText()+"\n";
+                }else{
+                    letra2 += para.getText()+"\n";
+                }
             });
             fis.close();
         } catch (Exception e){
@@ -567,6 +574,9 @@ public class Panel1 extends JPanel{
         String separadores = "[\\ \\.\\,\\?\\!\\=\\-]";
         
         parts = letra2.split(separadores);
+        System.out.println("Aqui");
+
+       // System.out.println(parts[0]);
         
         for (int x=0;x<parts.length;x++){
             if(parts.length == 1){
