@@ -156,18 +156,23 @@ public class Panel1 extends JPanel{
                 }
             
             
-        }
+}
         // LIsta de documentos del programa
         
         lista_Documentos = new JList(modeloLista);
         lista_Documentos.setBounds(8, 150, 150, 160);
         this.add(lista_Documentos);
+        int largo = modeloLista.getSize();
+        String[] documentos= new String[largo];
+        for(int i=0 ; i < largo ; i++){
+            documentos[i] = (String) modeloLista.get(i);
+        }
         
         //Eventos del mouse
     
         mo = new MouseListener(){
         
-        String[] documentos;    
+        
             
             @Override
            
@@ -225,8 +230,7 @@ public class Panel1 extends JPanel{
 
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
                     try {
-                        int largo = modeloLista.getSize();
-                        documentos = new String[largo];
+                        
                         for(int i=0 ; i < largo ; i++){
                             documentos[i] = (String) modeloLista.get(i);
                         }
@@ -246,7 +250,7 @@ public class Panel1 extends JPanel{
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Orden){
                     
-                    String[] options = {"Nombre", "Fecha", "Tama�o"};
+                    String[] options = {"Nombre", "Fecha", "Tama?o"};
                     int x = JOptionPane.showOptionDialog(null, "Seleccione como desea ordenar los archivos","Ordenar por",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                     
@@ -303,7 +307,8 @@ public class Panel1 extends JPanel{
         Orden.addMouseListener(mo);
         lista_Documentos.addMouseListener(mo);
         Abrir.addMouseListener(mo);
-}
+         
+    }
     
     /**
      * Metodo para eliminar documentos/ 
@@ -337,13 +342,14 @@ public class Panel1 extends JPanel{
         
         FileReader entrada;
         pos = lista_Documentos.getSelectedIndex();
+        //System.out.println(lista_Documentos.);
         
         letra2 = null;
         File path = new File("Docs\\"+ docs[pos]);
         System.out.println(path);
         try {
             File dir = (File)path;
-
+            //System.out.println(Directorios[pos].toString());
             File file = new File(dir.getAbsolutePath());
             
             FileInputStream fis = new FileInputStream(file.getAbsolutePath());
