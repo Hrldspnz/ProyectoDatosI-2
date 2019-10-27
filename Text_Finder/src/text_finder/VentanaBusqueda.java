@@ -180,7 +180,14 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         t1.setText(seleccionado.Resultado.elementAt(pos));
         resaltarpalabra(t1,Barra.getText());
         try {
-            texto(jList1);
+            RNodo actdoc = resultado.head;
+            String[] doclist = new String[resultado.size]; 
+            int i = 0;
+            while(actdoc != null){
+                doclist[i] = actdoc.Doc.getName();
+                i++; actdoc = actdoc.next;
+            }
+            texto(jList1,doclist);
         } catch (IOException ex) {
             Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
         }

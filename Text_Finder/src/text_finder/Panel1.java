@@ -7,8 +7,6 @@ package text_finder;
 
 
 
-import PatronDiseño.AgregadoConcreto;
-import PatronDiseño.Iterador;
 import ResultadoText.ListEResultado;
 import ResultadoText.RNodo;
 import java.awt.Font;
@@ -139,28 +137,26 @@ public class Panel1 extends JPanel{
         Texto_doc.setBounds(8, 70, 150, 100);
         Texto_doc.setFont(fuente);
         this.add(Texto_doc);
-         
+        
         // Al iniciar el programa se recorre todos los documentos almacenados
         File dir = new File("Docs");
         recorrer = dir.list();
-        
         Directorios = dir.listFiles();
-        AgregadoConcreto Documentos = new AgregadoConcreto();
-        
-        Iterador iterador = Documentos.getIterador();
         
         modeloLista = new DefaultListModel();
         
-        
         //Ingresa los nombres de los archivos en la lista de documentos
-         while( iterador.recorrer() == true ) {{
+        if (recorrer == null){
+            System.out.println("No hay ficheros en el directorio especificado");
+        }else { 
+            for (int x=0;x<recorrer.length;x++){
                
-                modeloLista.addElement(iterador.siguiente());
+                modeloLista.addElement(recorrer[x]);
                 
                 }
             
             
-}
+        }
         // LIsta de documentos del programa
         
         lista_Documentos = new JList(modeloLista);
@@ -170,7 +166,9 @@ public class Panel1 extends JPanel{
         //Eventos del mouse
     
         mo = new MouseListener(){
-
+        
+        String[] documentos;    
+            
             @Override
            
             public void mouseClicked(MouseEvent e) {
@@ -227,7 +225,12 @@ public class Panel1 extends JPanel{
 
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == lista_Documentos){
                     try {
-                        texto(lista_Documentos);
+                        int largo = modeloLista.getSize();
+                        documentos = new String[largo];
+                        for(int i=0 ; i < largo ; i++){
+                            documentos[i] = (String) modeloLista.get(i);
+                        }
+                        texto(lista_Documentos,documentos);
                     } catch (IOException ex) {
                         Logger.getLogger(Panel1.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -248,11 +251,6 @@ public class Panel1 extends JPanel{
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                     
                     int largo = modeloLista.getSize();
-                    String [] documentos = new String[largo];
-
-                    for(int i=0 ; i<largo ; i++){
-                        documentos[i] = (String) modeloLista.get(i);
-                    }
                     switch(x){
                         case 0 : Ordenar(documentos);break;
                         case 1 : bubble_srt(documentos);break;
@@ -260,16 +258,11 @@ public class Panel1 extends JPanel{
                         default : Ordenar(documentos); break;
                             
                     }modeloLista.clear();
+                     
                     for (int i = 0; i < largo; i++) {
-                       modeloLista.addElement(documentos[i]); 
-                    }
-                    lista_Documentos.removeAll();
-                    lista_Documentos.setModel(modeloLista);
-                    for (int i = 0; i < largo; i++) {
-                       Directorios[i] = (Object)dir +"\\"+documentos[i];
-                       System.out.println(documentos[i]);
-                    }
-                    
+                       modeloLista.addElement(documentos[i]);
+                    }lista_Documentos.removeAll();
+                    lista_Documentos.setModel(modeloLista); 
                     
                 }
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getSource() == Abrir){
@@ -336,16 +329,21 @@ public class Panel1 extends JPanel{
     /**
      * Metodo que se encarga de leer los documentos
      * @author Harold EM, Armando
+     * @param lista_Documentos recibe la JList de la cual se desea obtener el doc selecionado
+     * @param docs recibe un array con los nombres de los documentos que aparecen en la JList
      */
     
-    public static void texto(JList lista_Documentos) throws IOException{
+    public static void texto(JList lista_Documentos, String[] docs ) throws IOException{
         
         FileReader entrada;
         pos = lista_Documentos.getSelectedIndex();
-        letra2 = null;
         
+        letra2 = null;
+        File path = new File("Docs\\"+ docs[pos]);
+        System.out.println(path);
         try {
-            File dir = (File) Directorios[pos];
+            File dir = (File)path;
+
             File file = new File(dir.getAbsolutePath());
             
             FileInputStream fis = new FileInputStream(file.getAbsolutePath());
@@ -366,7 +364,7 @@ public class Panel1 extends JPanel{
         } catch (Exception e){
                 
               try{
-                File dir = (File) Directorios[pos];
+                File dir = (File) path;
                 PDDocument document = PDDocument.load(new File(dir.getAbsolutePath()));
                 AccessPermission ap = document.getCurrentAccessPermission();
                 if (!ap.canExtractContent())
@@ -405,7 +403,7 @@ public class Panel1 extends JPanel{
                 document.close();
                 }catch(Exception exc){
                     try{                    
-                        entrada = new FileReader((File) Directorios[pos]);
+                        entrada = new FileReader((File) path);
 
                         int c = 0;
                         
@@ -564,18 +562,12 @@ public class Panel1 extends JPanel{
         }
         
     }
-    
-    /**
-     * 
-     * @param archivo Archivo a parsear
-     */
+    //Metodo para agregar el texto de un archivo en una variable
     public void separar(File archivo){
-        //Metodo para agregar el texto de un archivo en una variable
         String separadores = "[\\ \\.\\,\\?\\!\\=\\-]";
-            // Separa cada letra y las agrega a una lista
+        
         parts = letra2.split(separadores);
         
-        // Recorre toda la lista y agrega cada palabra al arbol al arbol
         for (int x=0;x<parts.length;x++){
             if(parts.length == 1){
                            Arbol.agregar(parts[x], archivo, parts[x], Arbol.raiz);
