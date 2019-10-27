@@ -80,7 +80,7 @@ public class ListaEnlazada {
                 }if(result==true){
                     datos.addElement(comparar.Texto);
                 }
-                System.out.println("eso papa "+ result);
+                System.out.println(result);
             }
             if (comparar.getDerecha() != null){
                 Busqueda(comparar.getDerecha(), word, dir);
