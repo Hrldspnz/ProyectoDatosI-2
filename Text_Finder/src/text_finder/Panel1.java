@@ -259,6 +259,12 @@ public class Panel1 extends JPanel{
                     for (int i = 0; i < largo; i++) {
                        modeloLista.addElement(documentos[i]); 
                     }
+                    lista_Documentos.removeAll();
+                    lista_Documentos.setModel(modeloLista);
+                    for (int i = 0; i < largo; i++) {
+                       Directorios[i] = (Object)dir +"\\"+documentos[i];
+                       System.out.println(documentos[i]);
+                    }
                     
                     
                 }
