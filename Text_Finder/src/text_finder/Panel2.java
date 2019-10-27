@@ -27,6 +27,7 @@ public class Panel2 extends JPanel{
         Texto.setLineWrap(true);
         this.add(Texto);
         
+        //Scroll del textarea
         Scroll = new JScrollPane();
         Scroll.setViewportView(Texto);
     }

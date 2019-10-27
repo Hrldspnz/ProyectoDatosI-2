@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package text_finder;
 
 import java.io.File;
@@ -28,13 +24,16 @@ public class ListaEnlazada {
      * @param comparar  Nodo a comparar al agregarlo al arbol
      */
     public void agregar(String Word, File Archivo, String Asociado, Nodo comparar){
-        Nodo nuevo = new Nodo(Word, Archivo, Asociado);
+        // Crea un nuevo nodo
+        Nodo nuevo = new Nodo(Word, Archivo, Asociado); // Si el nodo raiz es null lo asigna como raiz
         if (raiz == null){
             raiz = nuevo;
             
-        } else{
+        } else{ 
             Nodo auxiliar = comparar;
             Nodo padre;
+            
+            // Si el nodo raiz no es null compara con los nodos hasta llegar a null
             while (true){
                 padre = auxiliar;
                 if(padre.getTexto().compareToIgnoreCase(Word) == 0){
@@ -62,7 +61,12 @@ public class ListaEnlazada {
         }
         
     }
-    
+    /**
+     * 
+     * @param comparar  Nodo a comparar con el nodo que se busca
+     * @param word  Palabra que se busca
+     * @param dir Archivo en el que se busca
+     */
     public void Busqueda(Nodo comparar, String word, File dir){
         //System.out.println(comparar.getString()+"---"+ word + "---"+comparar.Archivo.getName()+"---"+dir.getName());
         String[] busqueda = word.split(" ");
@@ -85,13 +89,14 @@ public class ListaEnlazada {
             if (comparar.getDerecha() != null){
                 Busqueda(comparar.getDerecha(), word, dir);
             }  
-            
+            // Si al comparar la palabra es mayor a 0 se va hacia la derecha
         }else if (comparar.getString().compareToIgnoreCase(word) > 0){  
             if (comparar.getDerecha() != null){
                 Busqueda(comparar.getDerecha(), word, dir);
             }
             
-            
+             // Si al comparar la palabra es mayor a 0 se va hacia la izquierda
+
         }else if (comparar.getString().compareToIgnoreCase(word) < 0){
             if (comparar.getIzquierda() != null){
                 Busqueda(comparar.getIzquierda(), word, dir);

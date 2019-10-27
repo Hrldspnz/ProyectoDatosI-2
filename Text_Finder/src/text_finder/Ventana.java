@@ -9,7 +9,7 @@ import static text_finder.Panel2.Scroll;
 
 /**
  *
- * @author arman
+ * @author Armando
  */
 public class Ventana extends javax.swing.JFrame{
     
@@ -19,19 +19,18 @@ public class Ventana extends javax.swing.JFrame{
     public Ventana() {
         initComponents();
         
-        //setLocationRelativeTo(null);
         
     }
 
   
     
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
+        // Panels de la aplicacion
         jPanel1 = new Panel1();
         jPanel2 = new Panel2();
         
         
-
+        // Metodo para cerrar la aplicacion
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
        

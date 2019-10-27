@@ -7,6 +7,8 @@ package text_finder;
 
 
 
+import PatronDiseño.AgregadoConcreto;
+import PatronDiseño.Iterador;
 import ResultadoText.ListEResultado;
 import ResultadoText.RNodo;
 import java.awt.Font;
@@ -137,21 +139,23 @@ public class Panel1 extends JPanel{
         Texto_doc.setBounds(8, 70, 150, 100);
         Texto_doc.setFont(fuente);
         this.add(Texto_doc);
-        
+         
         // Al iniciar el programa se recorre todos los documentos almacenados
         File dir = new File("Docs");
         recorrer = dir.list();
+        
         Directorios = dir.listFiles();
+        AgregadoConcreto Documentos = new AgregadoConcreto();
+        
+        Iterador iterador = Documentos.getIterador();
         
         modeloLista = new DefaultListModel();
         
+        
         //Ingresa los nombres de los archivos en la lista de documentos
-        if (recorrer == null){
-            System.out.println("No hay ficheros en el directorio especificado");
-        }else { 
-            for (int x=0;x<recorrer.length;x++){
+         while( iterador.recorrer() == true ) {{
                
-                modeloLista.addElement(recorrer[x]);
+                modeloLista.addElement(iterador.siguiente());
                 
                 }
             
@@ -560,12 +564,18 @@ public class Panel1 extends JPanel{
         }
         
     }
-    //Metodo para agregar el texto de un archivo en una variable
+    
+    /**
+     * 
+     * @param archivo Archivo a parsear
+     */
     public void separar(File archivo){
+        //Metodo para agregar el texto de un archivo en una variable
         String separadores = "[\\ \\.\\,\\?\\!\\=\\-]";
-        
+            // Separa cada letra y las agrega a una lista
         parts = letra2.split(separadores);
         
+        // Recorre toda la lista y agrega cada palabra al arbol al arbol
         for (int x=0;x<parts.length;x++){
             if(parts.length == 1){
                            Arbol.agregar(parts[x], archivo, parts[x], Arbol.raiz);
